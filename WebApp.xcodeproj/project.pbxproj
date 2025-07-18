@@ -68,8 +68,46 @@
       );
       productName = WebApp;
       productType = "com.apple.product-type.application";
+      buildConfigurationList = G1H2I3J4K5L6M7N8O9P0;
     };
 /* End PBXNativeTarget section */
+
+/* Begin XCBuildConfiguration section */
+    G1H2I3J4K5L6M7N8O9P1 /* Debug */ = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.WebApp;
+        INFOPLIST_FILE = Info.plist;
+        SWIFT_VERSION = 5.0;
+        SDKROOT = iphoneos;
+      };
+      name = Debug;
+    };
+    G1H2I3J4K5L6M7N8O9P2 /* Release */ = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.WebApp;
+        INFOPLIST_FILE = Info.plist;
+        SWIFT_VERSION = 5.0;
+        SDKROOT = iphoneos;
+        STRIP_DEBUG_SYMBOLS = YES;
+        ENABLE_NS_ASSERTIONS = NO;
+      };
+      name = Release;
+    };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+    G1H2I3J4K5L6M7N8O9P0 = {
+      isa = XCConfigurationList;
+      buildConfigurations = (
+        G1H2I3J4K5L6M7N8O9P1 /* Debug */,
+        G1H2I3J4K5L6M7N8O9P2 /* Release */,
+      );
+      defaultConfigurationIsVisible = 0;
+      defaultConfigurationName = Release;
+    };
+/* End XCConfigurationList section */
 
 /* Begin PBXProject section */
     F1G2H3I4J5K6L7M8N9O0 = {
