@@ -82,6 +82,9 @@
         PRODUCT_NAME = WebApp;
         SWIFT_VERSION = 5.0;
         ENABLE_BITCODE = NO;
+        CODE_SIGNING_ALLOWED = NO;
+        CODE_SIGNING_REQUIRED = NO;
+        CODE_SIGNING_IDENTITY = "";
       };
       name = Debug;
     };
@@ -94,6 +97,9 @@
         PRODUCT_NAME = WebApp;
         SWIFT_VERSION = 5.0;
         ENABLE_BITCODE = NO;
+        CODE_SIGNING_ALLOWED = NO;
+        CODE_SIGNING_REQUIRED = NO;
+        CODE_SIGNING_IDENTITY = "";
       };
       name = Release;
     };
