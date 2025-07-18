@@ -1,0 +1,160 @@
+// !$*UTF8*$!
+{
+  archiveVersion = 1;
+  classes = {
+  };
+  objectVersion = 55;
+  objects = {
+
+/* Begin PBXBuildFile section */
+    1234567890ABCDEF12345678 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDEF12345679 /* ContentView.swift */; };
+    1234567890ABCDEF1234567A /* WebAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDEF1234567B /* WebAppApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+    1234567890ABCDEF12345679 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebApp/ContentView.swift; sourceTree = "<group>"; };
+    1234567890ABCDEF1234567B /* WebAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebApp/WebAppApp.swift; sourceTree = "<group>"; };
+    1234567890ABCDEF1234567C /* WebApp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = WebApp.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+    1234567890ABCDEF1234567D = {
+      isa = PBXGroup;
+      children = (
+        1234567890ABCDEF12345679,
+        1234567890ABCDEF1234567B,
+      );
+      path = WebApp;
+      sourceTree = "<group>";
+    };
+    1234567890ABCDEF1234567E = {
+      isa = PBXGroup;
+      children = (
+        1234567890ABCDEF1234567D,
+        1234567890ABCDEF1234567C,
+      );
+      sourceTree = "<group>";
+    };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+    1234567890ABCDEF1234567F = {
+      isa = PBXNativeTarget;
+      buildConfigurationList = 1234567890ABCDEF12345680 /* Build configuration list for PBXNativeTarget "WebApp" */;
+      buildPhases = (
+        1234567890ABCDEF12345681 /* Sources */,
+        1234567890ABCDEF12345682 /* Frameworks */,
+        1234567890ABCDEF12345683 /* Resources */,
+      );
+      buildRules = (
+      );
+      dependencies = (
+      );
+      name = WebApp;
+      productName = WebApp;
+      productReference = 1234567890ABCDEF12345684 /* WebApp.app */;
+      productType = "com.apple.product-type.application";
+    };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+    1234567890ABCDEF12345685 = {
+      isa = PBXProject;
+      buildConfigurationList = 1234567890ABCDEF12345686 /* Build configuration list for PBXProject "WebApp" */;
+      compatibilityVersion = "Xcode 13.0";
+      mainGroup = 1234567890ABCDEF1234567E;
+      productRefGroup = 1234567890ABCDEF1234567E;
+      projectDirPath = "";
+      projectRoot = "";
+      targets = (
+        1234567890ABCDEF1234567F,
+      );
+    };
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+    1234567890ABCDEF12345687 = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        INFOPLIST_FILE = WebApp/Info.plist;
+        IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+        PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.WebApp;
+        PRODUCT_NAME = WebApp;
+        SWIFT_VERSION = 5.0;
+        ENABLE_BITCODE = NO;
+      };
+      name = Debug;
+    };
+    1234567890ABCDEF12345688 = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        INFOPLIST_FILE = WebApp/Info.plist;
+        IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+        PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.WebApp;
+        PRODUCT_NAME = WebApp;
+        SWIFT_VERSION = 5.0;
+        ENABLE_BITCODE = NO;
+      };
+      name = Release;
+    };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+    1234567890ABCDEF12345680 = {
+      isa = XCConfigurationList;
+      buildConfigurations = (
+        1234567890ABCDEF12345687,
+        1234567890ABCDEF12345688,
+      );
+      defaultConfigurationIsVisible = 0;
+      defaultConfigurationName = Release;
+    };
+    1234567890ABCDEF12345686 = {
+      isa = XCConfigurationList;
+      buildConfigurations = (
+        1234567890ABCDEF12345687,
+        1234567890ABCDEF12345688,
+      );
+      defaultConfigurationIsVisible = 1;
+      defaultConfigurationName = Release;
+    };
+/* End XCConfigurationList section */
+
+/* Begin PBXBuildPhase section */
+    1234567890ABCDEF12345681 = {
+      isa = PBXSourcesBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+        1234567890ABCDEF12345678,
+        1234567890ABCDEF1234567A,
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
+    1234567890ABCDEF12345682 = {
+      isa = PBXFrameworksBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
+    1234567890ABCDEF12345683 = {
+      isa = PBXResourcesBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
+/* End PBXBuildPhase section */
+
+/* Begin PBXFileReference section continued */
+    1234567890ABCDEF12345684 = {
+      isa = PBXFileReference;
+      lastKnownFileType = "wrapper.application";
+      path = WebApp.app;
+      sourceTree = "BUILT_PRODUCTS_DIR";
+    };
+/* End PBXFileReference section continued */
+
+  };
+  rootObject = 1234567890ABCDEF12345685;
+}
