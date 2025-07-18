@@ -1,0 +1,28 @@
+name: Build iOS App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build .ipa
+        run: |
+          xcodebuild -scheme WebApp -sdk iphoneos -configuration Release archive -archivePath $PWD/build/WebApp.xcarchive
+          xcodebuild -exportArchive -archivePath $PWD/build/WebApp.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $PWD/build
+
+      - name: Upload .ipa
+        uses: actions/upload-artifact@v4
+        with:
+          name: WebApp
+          path: build/WebApp.ipa
