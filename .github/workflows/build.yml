@@ -23,32 +23,37 @@ jobs:
       - name: Install CocoaPods
         run: sudo gem install cocoapods
 
-      - name: Try pod install (non-blocking)
-        run: pod install || true
-        shell: bash
+      - name: Install Pods
+        run: pod install
+        working-directory: WebApp
 
-      - name: Build .xcodeproj
+      - name: Build Archive
         run: |
           xcodebuild \
-            -project SoulLandWebApp.xcodeproj \
+            -workspace WebApp.xcworkspace \
             -scheme SoulLandWebApp \
             -sdk iphoneos \
             -configuration Release \
-            -archivePath $PWD/build/SoulLandWebApp.xcarchive \
-            archive
-        shell: bash
+            -archivePath $PWD/WebApp/build/SoulLandWebApp.xcarchive \
+            clean archive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            DEVELOPMENT_TEAM=""
+        working-directory: WebApp
 
       - name: Export IPA
         run: |
           xcodebuild \
             -exportArchive \
-            -archivePath $PWD/build/SoulLandWebApp.xcarchive \
-            -exportPath $PWD/build \
-            -exportOptionsPlist ExportOptions.plist
-        shell: bash
+            -archivePath $PWD/WebApp/build/SoulLandWebApp.xcarchive \
+            -exportPath $PWD/WebApp/build \
+            -exportOptionsPlist ExportOptions.plist \
+            CODE_SIGNING_ALLOWED=NO
+        working-directory: WebApp
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: SoulLandWebApp-IPA
-          path: build/SoulLandWebApp.ipa
+          path: WebApp/build/*.ipa
