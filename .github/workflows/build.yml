@@ -22,8 +22,8 @@ jobs:
     - name: Install CocoaPods
       run: gem install cocoapods
 
-    - name: Install CocoaPods dependencies
-      run: pod install
+    - name: Install CocoaPods dependencies (force repo update)
+      run: pod install --repo-update
 
     - name: Build unsigned IPA
       run: |
