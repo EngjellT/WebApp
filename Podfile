@@ -2,7 +2,7 @@
 platform :ios, '13.0'
 
 source 'https://cdn.cocoapods.org/'
-source 'git@github.com:gonativeio/gonative-specs.git'
+source 'https://github.com/gonativeio/gonative-specs.git'  # changed to HTTPS
 
 require_relative './plugins.rb'
 
