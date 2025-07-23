@@ -20,7 +20,7 @@ jobs:
 
       - name: Build unsigned app
         run: |
-          xcodebuild -project Soul\ LandWebApp.xcodeproj -scheme SoulLandWebApp \
+          xcodebuild -project SoulLandWebApp.xcodeproj -scheme SoulLandWebApp \
           -configuration Release clean build \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
           -derivedDataPath build
