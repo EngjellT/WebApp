@@ -8,52 +8,41 @@ on:
 
 jobs:
   build:
-    name: Build iOS App
-    runs-on: macos-latest
+    runs-on: macos-13
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
+          ruby-version: 3.1
 
       - name: Install CocoaPods
         run: sudo gem install cocoapods
 
-      - name: Install Pods
-        run: pod install
-        working-directory: WebApp
-
-      - name: Build Archive
+      - name: Install dependencies
         run: |
-          xcodebuild \
-            -workspace WebApp.xcworkspace \
-            -scheme SoulLandWebApp \
-            -sdk iphoneos \
-            -configuration Release \
-            -archivePath $PWD/WebApp/build/SoulLandWebApp.xcarchive \
-            clean archive \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            DEVELOPMENT_TEAM=""
-        working-directory: WebApp
+          cd WebApp/WebApp
+          pod install
 
-      - name: Export IPA
+      - name: Build app (IPA)
         run: |
-          xcodebuild \
-            -exportArchive \
-            -archivePath $PWD/WebApp/build/SoulLandWebApp.xcarchive \
-            -exportPath $PWD/WebApp/build \
-            -exportOptionsPlist ExportOptions.plist \
-            CODE_SIGNING_ALLOWED=NO
-        working-directory: WebApp
+          cd WebApp/WebApp
+          xcodebuild -workspace WebApp.xcworkspace \
+                     -scheme WebApp \
+                     -sdk iphoneos \
+                     -configuration Release \
+                     -archivePath $PWD/build/WebApp.xcarchive \
+                     archive
+          xcodebuild -exportArchive \
+                     -archivePath $PWD/build/WebApp.xcarchive \
+                     -exportPath $PWD/build/export \
+                     -exportOptionsPlist ExportOptions.plist
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: SoulLandWebApp-IPA
-          path: WebApp/build/*.ipa
+          name: WebApp-IPA
+          path: WebApp/WebApp/build/export/*.ipa
