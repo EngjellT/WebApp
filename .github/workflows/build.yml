@@ -8,41 +8,40 @@ on:
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1
+    - name: Setup Ruby for CocoaPods
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2
 
-      - name: Install CocoaPods
-        run: sudo gem install cocoapods
+    - name: Install CocoaPods
+      run: gem install cocoapods
 
-      - name: Install dependencies
-        run: |
-          cd WebApp/WebApp
-          pod install
+    - name: Install CocoaPods dependencies
+      run: pod install
 
-      - name: Build app (IPA)
-        run: |
-          cd WebApp/WebApp
-          xcodebuild -workspace WebApp.xcworkspace \
-                     -scheme WebApp \
-                     -sdk iphoneos \
-                     -configuration Release \
-                     -archivePath $PWD/build/WebApp.xcarchive \
-                     archive
-          xcodebuild -exportArchive \
-                     -archivePath $PWD/build/WebApp.xcarchive \
-                     -exportPath $PWD/build/export \
-                     -exportOptionsPlist ExportOptions.plist
+    - name: Build unsigned IPA
+      run: |
+        xcodebuild clean archive \
+          -project SoulLandWebApp.xcodeproj \
+          -scheme SoulLandWebApp \
+          -configuration Release \
+          -archivePath $PWD/build/SoulLandWebApp.xcarchive \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO
 
-      - name: Upload IPA
-        uses: actions/upload-artifact@v4
-        with:
-          name: WebApp-IPA
-          path: WebApp/WebApp/build/export/*.ipa
+        xcodebuild -exportArchive \
+          -archivePath $PWD/build/SoulLandWebApp.xcarchive \
+          -exportPath $PWD/build \
+          -exportOptionsPlist exportOptions.plist
+
+    - name: Upload unsigned IPA
+      uses: actions/upload-artifact@v4
+      with:
+        name: SoulLandWebApp-unsigned
+        path: build/SoulLandWebApp.ipa
