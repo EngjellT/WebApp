@@ -23,18 +23,18 @@ jobs:
       - name: Install CocoaPods
         run: sudo gem install cocoapods
 
-      - name: Install pods
+      - name: Try pod install (non-blocking)
         run: pod install || true
         shell: bash
 
-      - name: Build app
+      - name: Build .xcodeproj
         run: |
           xcodebuild \
-            -workspace WebApp.xcworkspace \
-            -scheme WebApp \
+            -project SoulLandWebApp.xcodeproj \
+            -scheme SoulLandWebApp \
             -sdk iphoneos \
             -configuration Release \
-            -archivePath $PWD/build/WebApp.xcarchive \
+            -archivePath $PWD/build/SoulLandWebApp.xcarchive \
             archive
         shell: bash
 
@@ -42,7 +42,7 @@ jobs:
         run: |
           xcodebuild \
             -exportArchive \
-            -archivePath $PWD/build/WebApp.xcarchive \
+            -archivePath $PWD/build/SoulLandWebApp.xcarchive \
             -exportPath $PWD/build \
             -exportOptionsPlist ExportOptions.plist
         shell: bash
@@ -50,5 +50,5 @@ jobs:
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: WebApp-IPA
-          path: build/WebApp.ipa
+          name: SoulLandWebApp-IPA
+          path: build/SoulLandWebApp.ipa
