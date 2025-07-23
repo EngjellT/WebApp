@@ -7,9 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  regenerate-lockfile:
     runs-on: macos-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,8 +21,48 @@ jobs:
       - name: Install CocoaPods
         run: gem install cocoapods
 
-      - name: Install CocoaPods dependencies (skip repo update)
-        run: pod install --no-repo-update
+      - name: Remove existing gonativeio spec repo (if any)
+        run: pod repo remove gonativeio-gonative-specs || echo "No existing repo to remove"
+
+      - name: Add GoNative Spec Repo
+        run: pod repo add gonativeio-gonative-specs https://github.com/gonativeio/gonative-specs.git
+
+      - name: Install pods and update Podfile.lock
+        run: pod install --repo-update
+
+      - name: Commit updated Podfile.lock
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Podfile.lock
+          git diff --cached --quiet || git commit -m "Update Podfile.lock via GitHub Actions"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    needs: regenerate-lockfile
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby for CocoaPods
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+
+      - name: Install CocoaPods
+        run: gem install cocoapods
+
+      - name: Remove existing gonativeio spec repo (if any)
+        run: pod repo remove gonativeio-gonative-specs || echo "No existing repo to remove"
+
+      - name: Add GoNative Spec Repo
+        run: pod repo add gonativeio-gonative-specs https://github.com/gonativeio/gonative-specs.git
+
+      - name: Install CocoaPods dependencies (force repo update)
+        run: pod install --repo-update
 
       - name: Build unsigned IPA
         run: |
