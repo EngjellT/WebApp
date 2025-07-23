@@ -16,7 +16,7 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '14.1'  # Adjust if needed
+          xcode-version: '16.2'  # Adjust if needed
 
       - name: Build unsigned app
         run: |
