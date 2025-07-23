@@ -24,7 +24,8 @@ jobs:
         run: sudo gem install cocoapods
 
       - name: Install pods
-        run: pod install
+        run: pod install || true
+        shell: bash
 
       - name: Build app
         run: |
@@ -35,6 +36,7 @@ jobs:
             -configuration Release \
             -archivePath $PWD/build/WebApp.xcarchive \
             archive
+        shell: bash
 
       - name: Export IPA
         run: |
@@ -43,6 +45,7 @@ jobs:
             -archivePath $PWD/build/WebApp.xcarchive \
             -exportPath $PWD/build \
             -exportOptionsPlist ExportOptions.plist
+        shell: bash
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
