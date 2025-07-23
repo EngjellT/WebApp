@@ -1,14 +1,6 @@
-name: Build iOS App (Unsigned IPA)
-
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
-
 jobs:
   build:
     runs-on: macos-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -16,7 +8,7 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '16.2'  # Adjust if needed
+          xcode-version: '16.2'
 
       - name: Build unsigned app
         run: |
@@ -27,8 +19,13 @@ jobs:
 
       - name: Archive app
         run: |
+          xcodebuild -project SoulLandWebApp.xcodeproj -scheme SoulLandWebApp \
+          -archivePath build/SoulLandWebApp.xcarchive archive
+
+      - name: Export IPA
+        run: |
           xcodebuild -exportArchive \
-          -archivePath build/Build/Products/Release-iphoneos/SoulLandWebApp.xcarchive \
+          -archivePath build/SoulLandWebApp.xcarchive \
           -exportOptionsPlist ExportOptions.plist \
           -exportPath build/ipa
 
