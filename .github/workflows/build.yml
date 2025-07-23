@@ -7,41 +7,69 @@ on:
   workflow_dispatch:
 
 jobs:
+  regenerate-lockfile:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby for CocoaPods
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+
+      - name: Install CocoaPods
+        run: gem install cocoapods
+
+      - name: Install pods and update Podfile.lock
+        run: pod install
+
+      - name: Commit updated Podfile.lock
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Podfile.lock
+          git diff --cached --quiet || git commit -m "Update Podfile.lock via GitHub Actions"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build:
+    needs: regenerate-lockfile
     runs-on: macos-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup Ruby for CocoaPods
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.2
+      - name: Setup Ruby for CocoaPods
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
 
-    - name: Install CocoaPods
-      run: gem install cocoapods
+      - name: Install CocoaPods
+        run: gem install cocoapods
 
-    - name: Install CocoaPods dependencies (force repo update)
-      run: pod install --repo-update
+      - name: Install CocoaPods dependencies (force repo update)
+        run: pod install --repo-update
 
-    - name: Build unsigned IPA
-      run: |
-        xcodebuild clean archive \
-          -project SoulLandWebApp.xcodeproj \
-          -scheme SoulLandWebApp \
-          -configuration Release \
-          -archivePath $PWD/build/SoulLandWebApp.xcarchive \
-          CODE_SIGN_IDENTITY="" \
-          CODE_SIGNING_REQUIRED=NO
+      - name: Build unsigned IPA
+        run: |
+          xcodebuild clean archive \
+            -project SoulLandWebApp.xcodeproj \
+            -scheme SoulLandWebApp \
+            -configuration Release \
+            -archivePath $PWD/build/SoulLandWebApp.xcarchive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO
 
-        xcodebuild -exportArchive \
-          -archivePath $PWD/build/SoulLandWebApp.xcarchive \
-          -exportPath $PWD/build \
-          -exportOptionsPlist exportOptions.plist
+          xcodebuild -exportArchive \
+            -archivePath $PWD/build/SoulLandWebApp.xcarchive \
+            -exportPath $PWD/build \
+            -exportOptionsPlist exportOptions.plist
 
-    - name: Upload unsigned IPA
-      uses: actions/upload-artifact@v4
-      with:
-        name: SoulLandWebApp-unsigned
-        path: build/SoulLandWebApp.ipa
+      - name: Upload unsigned IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: SoulLandWebApp-unsigned
+          path: build/SoulLandWebApp.ipa
