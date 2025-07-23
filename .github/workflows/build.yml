@@ -45,7 +45,7 @@ jobs:
             -exportOptionsPlist ExportOptions.plist
 
       - name: Upload IPA
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: WebApp-IPA
           path: build/WebApp.ipa
