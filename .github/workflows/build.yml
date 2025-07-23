@@ -33,7 +33,7 @@ jobs:
           -exportPath build/ipa
 
       - name: Upload IPA artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: unsigned-ipa
           path: build/ipa/*.ipa
