@@ -21,8 +21,11 @@ jobs:
       - name: Install CocoaPods
         run: gem install cocoapods
 
+      - name: Remove existing gonativeio spec repo (if any)
+        run: pod repo remove gonativeio-gonative-specs || echo "No existing repo to remove"
+
       - name: Add GoNative Spec Repo
-        run: pod repo add gonativeio-gonative-specs https://github.com/gonativeio/gonative-specs.git || echo "Repo already added"
+        run: pod repo add gonativeio-gonative-specs https://github.com/gonativeio/gonative-specs.git
 
       - name: Install pods and update Podfile.lock
         run: pod install --repo-update
@@ -52,8 +55,11 @@ jobs:
       - name: Install CocoaPods
         run: gem install cocoapods
 
+      - name: Remove existing gonativeio spec repo (if any)
+        run: pod repo remove gonativeio-gonative-specs || echo "No existing repo to remove"
+
       - name: Add GoNative Spec Repo
-        run: pod repo add gonativeio-gonative-specs https://github.com/gonativeio/gonative-specs.git || echo "Repo already added"
+        run: pod repo add gonativeio-gonative-specs https://github.com/gonativeio/gonative-specs.git
 
       - name: Install CocoaPods dependencies (force repo update)
         run: pod install --repo-update
